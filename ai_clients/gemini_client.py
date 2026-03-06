@@ -1,7 +1,9 @@
+import os
 import google.generativeai as genai
 from typing import List, Dict
 from .base_client import BaseAIClient
-import config
+
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
 
 
 class GeminiClient(BaseAIClient):
@@ -9,9 +11,10 @@ class GeminiClient(BaseAIClient):
 
     def __init__(self):
         self.model = None
-        if config.GEMINI_API_KEY:
-            genai.configure(api_key=config.GEMINI_API_KEY)
-            self.model = genai.GenerativeModel(config.GEMINI_MODEL)
+        api_key = os.getenv("GEMINI_API_KEY", "")
+        if api_key:
+            genai.configure(api_key=api_key)
+            self.model = genai.GenerativeModel(GEMINI_MODEL)
 
     def is_available(self) -> bool:
         return self.model is not None

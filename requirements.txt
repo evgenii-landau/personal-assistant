@@ -1,19 +1,28 @@
 # Telegram Bot
-python-telegram-bot==21.6
+aiogram==3.13.0
 
 # AI Clients
+groq==1.0.0
 anthropic==0.34.2
 google-generativeai==0.8.2
 
-# Desktop Agent (local server)
+# Backend API
 fastapi==0.115.0
 uvicorn==0.31.0
 httpx==0.27.2
 
+# Database
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
+
+# JWT Authentication
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
 # Utilities
 python-dotenv==1.0.1
-pydantic==2.9.2
-aiofiles==24.1.0
-
-# Memory (Phase 6 - optional for now)
-# chromadb==0.5.5
+pydantic==2.8.2
+pydantic[email]
+pytz==2026.1
+python-dateutil==2.9.0
+python-multipart==0.0.9

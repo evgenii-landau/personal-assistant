@@ -1,7 +1,9 @@
+import os
 import anthropic
 from typing import List, Dict
 from .base_client import BaseAIClient
-import config
+
+CLAUDE_MODEL = os.getenv("CLAUDE_MODEL", "claude-3-5-haiku-20241022")
 
 
 class ClaudeClient(BaseAIClient):
@@ -9,8 +11,9 @@ class ClaudeClient(BaseAIClient):
 
     def __init__(self):
         self.client = None
-        if config.ANTHROPIC_API_KEY:
-            self.client = anthropic.AsyncAnthropic(api_key=config.ANTHROPIC_API_KEY)
+        api_key = os.getenv("ANTHROPIC_API_KEY", "")
+        if api_key:
+            self.client = anthropic.AsyncAnthropic(api_key=api_key)
 
     def is_available(self) -> bool:
         return self.client is not None
@@ -29,7 +32,7 @@ class ClaudeClient(BaseAIClient):
                 cleaned.append(msg)
 
         kwargs = {
-            "model": config.CLAUDE_MODEL,
+            "model": CLAUDE_MODEL,
             "max_tokens": 4096,
             "messages": cleaned,
         }
